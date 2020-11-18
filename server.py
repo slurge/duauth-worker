@@ -1,29 +1,39 @@
 from flask import *
 from flask_cors import CORS
+from manager import driver
+
+app = Flask('WorkerSVM')
+CORS(app)
 
 
-app = Flask('flaksModule')
+#------accesos--------------------------
 
 @app.route('/fit', methods = ['POST'])
 def fit():
-	print('aber')
-	si = request.get_json() #Conseguir los datos del fingerprint y cadencia
-	print ('\nTraning: ', si[])
-	#aqui iria el modelo de entrenamiento de datos
-
+	data = request.get_json() 
+	print ('\nTraning: ', data['model'])
+	#resp = driver.fit(data)
+	resp = {'response': 'success'}
 	return jsonify(resp)
+
 
 @app.route('/predict', methods = ['POST'])
 def predict():
-	si = request.get_json() 
-
-	print ('\nPredicting: ', si)
-	#Modelo de prediccion SVM con SVC
+	data = request.get_json() 
+	print ('\nPredicting: ', data['model'])
+	#resp = driver.predict(data)
+	resp = {'response': 'success'}
 	return jsonify(resp)
+
+
+#----------------------------------------
 
 @app.route('/')
 def home():
-	return 'Hola mundo!'
+	with open('eyes.html', 'r') as aber:
+		page = aber.read()
+	return page
+
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -31,10 +41,12 @@ def shutdown_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
+
 @app.route('/kill', methods=['GET'])
 def kill():
 	print('killing app')
 	shutdown_server()
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000, debug=True)
