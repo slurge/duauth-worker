@@ -13,5 +13,8 @@ class SVM:
 
 
 	def predict(self, x, y):
-		return self.model.predict(x) == y
+		pred = self.model.predict(x.reshape(1, -1))[0]
+		res = pred == int(y)
+		print(res)
+		return res
 	

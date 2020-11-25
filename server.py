@@ -22,7 +22,7 @@ def predict():
 	data = request.get_json() 
 	print ('\nPredicting: ', data)
 	resp = driver.predict(data)
-	return jsonify({'is_user': resp})
+	return jsonify({'is_user': int(resp)})
 
 
 #----------------------------------------
