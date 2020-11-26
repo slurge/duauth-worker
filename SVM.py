@@ -4,7 +4,7 @@ from sklearn.svm import SVC
 
 class SVM:
 	def __init__(self):
-		self.model = SVC(gamma=2, C=1)	#gamma = tolerancia, C = regularizacion
+		self.model = SVC(C=1, gamma=1, kernel='linear')	#gamma = tolerancia, C = regularizacion
 
 		
 	def fit(self, x, y):
