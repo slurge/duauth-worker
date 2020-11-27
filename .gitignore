@@ -1,5 +1,3 @@
 *.bin
 *.csv
 __pycache__/
-data/
-models/
